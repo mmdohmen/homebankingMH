@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepo;
-import com.mindhub.homebanking.repositories.ClientRepo;
-import com.mindhub.homebanking.repositories.TransactionRepo;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -23,7 +19,8 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData (ClientRepo clientrepo, AccountRepo accountrepo, TransactionRepo transactionRepo) {
+	public CommandLineRunner initData (ClientRepo clientrepo, AccountRepo accountrepo, TransactionRepo transactionRepo,
+									   LoanRepo loanRepo, ClientLoanRepo clientLoanRepo) {
 		return(args -> {
 			// instancio un cliente y sus cuentas
 			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL");
@@ -63,6 +60,38 @@ public class HomebankingApplication {
 			a3.addTransaction(t4);
 			transactionRepo.save(t4);
 
+
+			// instancio tipos de PRESTAMOS
+			Loan l1 = new Loan ("mortgage", 500000, List.of(12, 24, 36, 48, 60));
+			loanRepo.save(l1);
+			Loan l2 = new Loan ("personal", 100000, List.of(6, 12, 24));
+			loanRepo.save(l2);
+			Loan l3 = new Loan ("automotive", 300000, List.of(6, 12, 24, 36));
+			loanRepo.save(l3);
+
+
+			// instancio Prestamos OTORGADOS a clientes
+			// a MELBA - cliente c1
+			ClientLoan cl1 = new ClientLoan(400000,60);   // detalles del prestamo
+			c1.addClientLoan(cl1);                                        // cliente q recibe el prestamo
+			l1.addClientLoan(cl1);                                        // prestamo HIPOTECARIO
+			clientLoanRepo.save(cl1);                                     // persistencia
+
+			ClientLoan cl2 = new ClientLoan(50000, 12);
+			c1.addClientLoan(cl2);
+			l2.addClientLoan(cl2);
+			clientLoanRepo.save(cl2);
+
+			// a MMDohmen - cliente 2
+			ClientLoan cl3 = new ClientLoan(100000, 24);
+			c2.addClientLoan(cl3);
+			l2.addClientLoan(cl3);
+			clientLoanRepo.save(cl3);
+
+			ClientLoan cl4 = new ClientLoan(200000, 36);
+			c2.addClientLoan(cl4);
+			l3.addClientLoan(cl4);
+			clientLoanRepo.save(cl4);
 
 		});
 	}
