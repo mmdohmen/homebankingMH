@@ -22,6 +22,8 @@ public class Client {
     private Set<Account> accounts = new HashSet<>();
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
 
     // constructores
@@ -74,6 +76,14 @@ public class Client {
         this.clientLoans = clientLoans;
     }
 
+    public Set<Card> getCards() {
+        return cards;
+    }
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+
     // metodos
     public void addAccount (Account account) {
         account.setCliente(this);
@@ -82,6 +92,11 @@ public class Client {
     public void addClientLoan (ClientLoan clientLoan) {
         clientLoan.setClient(this);
         clientLoans.add(clientLoan);
+    }
+
+    public void addCard (Card card) {
+        card.setClient(this);
+        cards.add(card);
     }
 
 

@@ -20,7 +20,7 @@ public class HomebankingApplication {
 
 	@Bean
 	public CommandLineRunner initData (ClientRepo clientrepo, AccountRepo accountrepo, TransactionRepo transactionRepo,
-									   LoanRepo loanRepo, ClientLoanRepo clientLoanRepo) {
+									   LoanRepo loanRepo, ClientLoanRepo clientLoanRepo, CardRepo cardRepo) {
 		return(args -> {
 			// instancio un cliente y sus cuentas
 			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL");
@@ -70,7 +70,7 @@ public class HomebankingApplication {
 			loanRepo.save(l3);
 
 
-			// instancio Prestamos OTORGADOS a clientes
+			// instancio PRESTAMOS otorgados a clientes
 			// a MELBA - cliente c1
 			ClientLoan cl1 = new ClientLoan(400000,60);   // detalles del prestamo
 			c1.addClientLoan(cl1);                                        // cliente q recibe el prestamo
@@ -92,6 +92,27 @@ public class HomebankingApplication {
 			c2.addClientLoan(cl4);
 			l3.addClientLoan(cl4);
 			clientLoanRepo.save(cl4);
+
+
+			// instancio TARJETAS para
+			// MELBA - cliente c1
+			Card card1 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.DEBIT, CardColor.GOLD, "0000-0000-0000-0001",
+					              (short) 1, LocalDate.now(), LocalDate.now().plusYears(5));
+			c1.addCard(card1);
+			cardRepo.save(card1);
+
+			Card card2 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.CREDIT, CardColor.TITANIUM, "0000-0000-0000-0002",
+					(short) 2, LocalDate.now(), LocalDate.now().plusYears(5));
+			c1.addCard(card2);
+			cardRepo.save(card2);
+
+
+			// MMDohmen - cliente 2
+			Card card3 = new Card((c2.getLastName() + " " + c2.getFirstName()), CardType.CREDIT, CardColor.SILVER, "0000-0000-0000-0003",
+					(short) 3, LocalDate.now(), LocalDate.now().plusYears(5));
+			c2.addCard(card3);
+			cardRepo.save(card3);
+
 
 		});
 	}
