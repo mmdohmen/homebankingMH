@@ -5,8 +5,8 @@ import com.mindhub.homebanking.models.ClientLoan;
 public class ClientLoanDTO {
 
     // atributos
-    private int id;
-    private int loanId;
+    private long id;
+    private long loanId;
     private String name;
     private double amount;
     private int payments;
@@ -25,11 +25,11 @@ public class ClientLoanDTO {
 
 
     // getter
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int getLoanId() {
+    public long getLoanId() {
         return loanId;
     }
 

@@ -29,7 +29,7 @@ public class ClientController {
     }
 
     @GetMapping("/clients/{id}")
-    public ClientDTO getClient (@PathVariable int id) {
+    public ClientDTO getClient (@PathVariable long id) {
         return clientRepo.findById(id).map(ClientDTO::new).orElse(null);
     }
 

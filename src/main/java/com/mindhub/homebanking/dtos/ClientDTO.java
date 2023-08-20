@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class ClientDTO {
 
     // atributos
-    private int id;
+    private long id;
     private String email;
     private String firstName;
     private String lastName;
@@ -33,7 +33,7 @@ public class ClientDTO {
 
 
     // getter
-    public int getId() {
+    public long getId() {
         return id;
     }
 

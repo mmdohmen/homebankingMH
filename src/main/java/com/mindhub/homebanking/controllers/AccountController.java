@@ -29,7 +29,7 @@ public class AccountController {
     }
 
     @GetMapping("/accounts/{id}")
-    public AccountDTO getAccount (@PathVariable int id) {   // *** cambiar por AccountDTO ***
+    public AccountDTO getAccount (@PathVariable long id) {   // *** cambiar por AccountDTO ***
         //return accountRepo.findById(id);
         // return clientRepo.findById(id).map(ClientDTO::new).orElse(null);
         return accountRepo.findById(id).map(AccountDTO::new).orElse(null);

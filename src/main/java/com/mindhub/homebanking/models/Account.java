@@ -15,7 +15,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private int id;
+    private long id;
     private String number;
     private LocalDate creationDate;
     private double balance;
@@ -37,7 +37,7 @@ public class Account {
 
 
     // getter & setter
-    public int getId() {
+    public long getId() {
         return id;
     }
 

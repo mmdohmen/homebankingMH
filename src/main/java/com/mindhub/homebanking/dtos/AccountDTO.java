@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class AccountDTO {
 
     // atributos
-    private int id;
+    private long id;
     private String number;
     private LocalDate creationDate;
     private double balance;
@@ -33,7 +33,7 @@ public class AccountDTO {
 
 
     // getter
-    public int getId() {
+    public long getId() {
         return id;
     }
 

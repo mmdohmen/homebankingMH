@@ -13,7 +13,7 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private int id;
+    private long id;
     private String cardholder;
     private CardType type;
     private CardColor color;
@@ -40,7 +40,7 @@ public class Card {
 
 
     // getter & setter
-    public int getId() {
+    public long getId() {
         return id;
     }
 

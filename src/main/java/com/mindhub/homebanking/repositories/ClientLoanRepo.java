@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface ClientLoanRepo extends JpaRepository<ClientLoan, Integer> {
+public interface ClientLoanRepo extends JpaRepository<ClientLoan, Long> {
 }

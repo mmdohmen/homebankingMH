@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +15,10 @@ import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication {
+
+	// atributos
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
@@ -23,14 +29,14 @@ public class HomebankingApplication {
 									   LoanRepo loanRepo, ClientLoanRepo clientLoanRepo, CardRepo cardRepo) {
 		return(args -> {
 			// instancio un cliente y sus cuentas
-			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL");
+			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL", passwordEncoder.encode("melba"));
 			Account a1 = new Account("VIN001", LocalDate.now(), 5000);
 			Account a2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
 			// agrego las cuentas al cliente
 			c1.addAccount(a1);
 			c1.addAccount(a2);
 
-			Client c2 = new Client("mmdohmen@hotmail.com", "Mario Maximo", "DOHMEN");
+			Client c2 = new Client("mmdohmen@hotmail.com", "Mario Maximo", "DOHMEN", passwordEncoder.encode("18079551"));
 			Account a3 = new Account("VIN003", LocalDate.now(), 25000);
 			c2.addAccount(a3);
 
@@ -44,19 +50,19 @@ public class HomebankingApplication {
 
 
 			// instancio TRANSACCIONES
-			Transaction t1 = new Transaction(LocalDateTime.now(),"deposito",1000, TransactionType.CREDITO);
+			Transaction t1 = new Transaction(LocalDateTime.now(),"deposito",1000, TransactionType.CREDIT);
 			a1.addTransaction(t1);
 			transactionRepo.save(t1);
 
-			Transaction t2 = new Transaction(LocalDateTime.now(), "deposito 2", 3000, TransactionType.CREDITO);
+			Transaction t2 = new Transaction(LocalDateTime.now(), "deposito 2", 3000, TransactionType.CREDIT);
 			a1.addTransaction(t2);
 			transactionRepo.save(t2);
 
-			Transaction t3 = new Transaction(LocalDateTime.now(), "extraccion", -900, TransactionType.DEBITO);
+			Transaction t3 = new Transaction(LocalDateTime.now(), "extraccion", -900, TransactionType.DEBIT);
 			a2.addTransaction(t3);
 			transactionRepo.save(t3);
 
-			Transaction t4 = new Transaction(LocalDateTime.now(), "transferencia", -7000, TransactionType.DEBITO);
+			Transaction t4 = new Transaction(LocalDateTime.now(), "transferencia", -7000, TransactionType.DEBIT);
 			a3.addTransaction(t4);
 			transactionRepo.save(t4);
 

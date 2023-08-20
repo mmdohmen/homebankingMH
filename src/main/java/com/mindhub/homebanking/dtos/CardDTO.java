@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class CardDTO {
 
     // atributos
-    private int id;
+    private long id;
     private String cardholder;
     private CardType type;
     private CardColor color;
@@ -39,7 +39,7 @@ public class CardDTO {
 
 
     // getter
-    public int getId() {
+    public long getId() {
         return id;
     }
 

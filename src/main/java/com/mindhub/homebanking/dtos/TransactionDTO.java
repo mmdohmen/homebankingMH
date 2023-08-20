@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class TransactionDTO {
 
     // atributos
-    private int id;
+    private long id;
     private LocalDateTime date;
     private String description;
     private double amount;
@@ -29,7 +29,7 @@ public class TransactionDTO {
     }
 
     // getter
-    public int getId() {
+    public long getId() {
         return id;
     }
 
