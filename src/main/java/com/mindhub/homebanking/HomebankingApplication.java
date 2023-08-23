@@ -29,14 +29,16 @@ public class HomebankingApplication {
 									   LoanRepo loanRepo, ClientLoanRepo clientLoanRepo, CardRepo cardRepo) {
 		return(args -> {
 			// instancio un cliente y sus cuentas
-			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL", passwordEncoder.encode("melba"));
+			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL",
+					                 passwordEncoder.encode("melba"));
 			Account a1 = new Account("VIN001", LocalDate.now(), 5000);
 			Account a2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
 			// agrego las cuentas al cliente
 			c1.addAccount(a1);
 			c1.addAccount(a2);
 
-			Client c2 = new Client("mmdohmen@hotmail.com", "Mario Maximo", "DOHMEN", passwordEncoder.encode("18079551"));
+			Client c2 = new Client("mmdohmen@hotmail.com", "Mario Maximo", "DOHMEN",
+					                passwordEncoder.encode("18079551"));
 			Account a3 = new Account("VIN003", LocalDate.now(), 25000);
 			c2.addAccount(a3);
 
