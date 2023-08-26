@@ -1,13 +1,18 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepo;
+import com.mindhub.homebanking.repositories.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,7 +23,8 @@ public class AccountController {
     // propiedades
     @Autowired
     private AccountRepo accountRepo;
-
+    @Autowired
+    private ClientRepo clientRepo;
 
     // metodos
     @GetMapping("/accounts")
@@ -33,6 +39,23 @@ public class AccountController {
         //return accountRepo.findById(id);
         // return clientRepo.findById(id).map(ClientDTO::new).orElse(null);
         return accountRepo.findById(id).map(AccountDTO::new).orElse(null);
+    }
+
+    @PostMapping("/clients/current/accounts")
+    public ResponseEntity<Object> newAccount (Authentication authentication) {
+        // cliente autenticado
+        Client client = clientRepo.findByEmail(authentication.getName());
+        // verifico cantidad de cuentas del cliente autenticado
+        if (client.getAccounts().size() >= 3) {
+            return new ResponseEntity<>("NO puede tener MAS de 3 CUENTAS ...", HttpStatus.FORBIDDEN);
+        }
+        // creacion y persistencia de cuenta nueva
+        Account a = new Account(LocalDate.now(), 0);
+        // asignacion de la cuenta al cliente
+        client.addAccount(a);
+        a.setCliente(client);
+        accountRepo.save(a);
+        return new ResponseEntity<>("cuenta CREADA...", HttpStatus.CREATED);
     }
 
 

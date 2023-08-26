@@ -29,11 +29,19 @@ public class Account {
     // constructores
     public Account() {}
 
+    public Account(LocalDate creationDate, double balance) {
+        Integer random = (int) (Math.random() * 100000000);
+        //                                                    *** agregar VERIFICACION de NO REPETIR nro de cuenta
+        this.number = "VIN-" + random.toString();
+        this.creationDate = creationDate;
+        this.balance = balance;
+    }
+    /*
     public Account(String number, LocalDate creationDate, double balance) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
-    }
+    } */
 
 
     // getter & setter
@@ -44,9 +52,12 @@ public class Account {
     public String getNumber() {
         return number;
     }
+
+    /*
     public void setNumber(String number) {
         this.number = number;
     }
+    */
 
     public LocalDate getCreationDate() {
         return creationDate;

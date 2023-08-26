@@ -1,7 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
+import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.repositories.AccountRepo;
 import com.mindhub.homebanking.repositories.ClientRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,8 @@ public class ClientController {
     private ClientRepo clientRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private AccountRepo accountRepo;
 
 
     // metodos
@@ -54,7 +59,13 @@ public class ClientController {
             return new ResponseEntity<>("Email already IN USE", HttpStatus.FORBIDDEN);
         }
 
-        clientRepo.save(new Client(email, firstName, lastName, passwordEncoder.encode(password)));
+        // creo el CLIENTE y su CUENTA
+        Client c = new Client(email, firstName, lastName, passwordEncoder.encode(password));
+        Account a = new Account(LocalDate.now(), 0);
+        c.addAccount(a);
+        // PERSISTO a ambos
+        clientRepo.save(c);
+        accountRepo.save(a);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

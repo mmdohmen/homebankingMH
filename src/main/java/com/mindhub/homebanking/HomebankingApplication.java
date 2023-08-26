@@ -31,21 +31,26 @@ public class HomebankingApplication {
 			// instancio un cliente y sus cuentas
 			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL",
 					                 passwordEncoder.encode("melba"));
-			Account a1 = new Account("VIN001", LocalDate.now(), 5000);
-			Account a2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
+			Account a1 = new Account(LocalDate.now(), 5000);
+			Account a2 = new Account(LocalDate.now().plusDays(1), 7500);
 			// agrego las cuentas al cliente
 			c1.addAccount(a1);
 			c1.addAccount(a2);
 
 			Client c2 = new Client("mmdohmen@hotmail.com", "Mario Maximo", "DOHMEN",
 					                passwordEncoder.encode("18079551"));
-			Account a3 = new Account("VIN003", LocalDate.now(), 25000);
+			Account a3 = new Account(LocalDate.now(), 25000);
 			c2.addAccount(a3);
+
+			// cliente ADMINISTRADOR
+			Client admin = new Client("zeta@zeta.com", "zeta", "ZETA", passwordEncoder.encode("Zeta1967"));
+
 
 			// persisto los objetos empezando por los CLIENTES p/ q se generen sus 'id'
 			// (los cuales son necesarios para crear la relacion (clave foranea) y poder persistir las CUENTAS
 			clientrepo.save(c1);
 			clientrepo.save(c2);
+			clientrepo.save(admin);
 			accountrepo.save(a1);
 			accountrepo.save(a2);
 			accountrepo.save(a3);
