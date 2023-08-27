@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class AccountController {
 
     // metodos
     @GetMapping("/accounts")
-    public Set<AccountDTO> getAccounts() {                   // *** cambiar por AccountDTO ***
+    public Set<AccountDTO> getAccounts() {
         //return accountRepo.findAll()
         //return clientRepo.findAll().stream().map(ClientDTO::new).collect(Collectors.toList());
         return accountRepo.findAll().stream().map(AccountDTO::new).collect(Collectors.toSet());
@@ -50,7 +51,19 @@ public class AccountController {
             return new ResponseEntity<>("NO puede tener MAS de 3 CUENTAS ...", HttpStatus.FORBIDDEN);
         }
         // creacion y persistencia de cuenta nueva
-        Account a = new Account(LocalDate.now(), 0);
+        List<Account> accounts = accountRepo.findAll();
+        boolean exists = false;
+        String number;
+        do {
+            Integer random = (int) (Math.random() * 100000000);
+            number = "VIN-" + random.toString();
+            // verifico que el numero de cuenta NO EXISTA
+            for (Account account : accounts) {
+                if (number.equals(account.getNumber())) { exists = true; }
+            }
+        } while (exists == true);
+
+        Account a = new Account(number, LocalDate.now(), 0);
         // asignacion de la cuenta al cliente
         client.addAccount(a);
         a.setCliente(client);

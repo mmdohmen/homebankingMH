@@ -27,7 +27,8 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                                 .antMatchers("/h2-console").hasAuthority("ADMIN")
                                 .antMatchers("/manager.html").hasAuthority("ADMIN")
                                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT")
-                                .antMatchers("/clients/current/account").hasAuthority("CLIENT");
+                                .antMatchers("/clients/current/account").hasAuthority("CLIENT")
+                                .antMatchers("/clients/current/cards").hasAuthority("CLIENT");
                                 //.anyRequest().denyAll();   // cierre de seguridad final => INVESTIGAR !!!
 
         // configuracion del formulario de inicio de sesion personalizada

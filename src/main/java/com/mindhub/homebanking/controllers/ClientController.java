@@ -61,8 +61,22 @@ public class ClientController {
 
         // creo el CLIENTE y su CUENTA
         Client c = new Client(email, firstName, lastName, passwordEncoder.encode(password));
-        Account a = new Account(LocalDate.now(), 0);
+
+        List<Account> accounts = accountRepo.findAll();
+        boolean exists = false;
+        String number;
+        do {
+            Integer random = (int) (Math.random() * 100000000);
+            number = "VIN-" + random.toString();
+            // verifico que el numero de cuenta NO EXISTA
+            for (Account account : accounts) {
+                if (number.equals(account.getNumber())) { exists = true; }
+            }
+        } while (exists == true);
+
+        Account a = new Account(number, LocalDate.now(), 0);
         c.addAccount(a);
+
         // PERSISTO a ambos
         clientRepo.save(c);
         accountRepo.save(a);

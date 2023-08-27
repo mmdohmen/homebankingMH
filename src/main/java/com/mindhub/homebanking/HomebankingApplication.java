@@ -31,19 +31,25 @@ public class HomebankingApplication {
 			// instancio un cliente y sus cuentas
 			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL",
 					                 passwordEncoder.encode("melba"));
-			Account a1 = new Account(LocalDate.now(), 5000);
-			Account a2 = new Account(LocalDate.now().plusDays(1), 7500);
+			Integer random = (int) (Math.random() * 100000000);
+			String number = "VIN-" + random.toString();
+			Account a1 = new Account(number, LocalDate.now(), 5000);
+			random = (int) (Math.random() * 100000000);
+			number = "VIN-" + random.toString();
+			Account a2 = new Account(number, LocalDate.now().plusDays(1), 7500);
 			// agrego las cuentas al cliente
 			c1.addAccount(a1);
 			c1.addAccount(a2);
 
 			Client c2 = new Client("mmdohmen@hotmail.com", "Mario Maximo", "DOHMEN",
 					                passwordEncoder.encode("18079551"));
-			Account a3 = new Account(LocalDate.now(), 25000);
+			random = (int) (Math.random() * 100000000);
+			number = "VIN-" + random.toString();
+			Account a3 = new Account(number, LocalDate.now(), 25000);
 			c2.addAccount(a3);
 
 			// cliente ADMINISTRADOR
-			Client admin = new Client("zeta@zeta.com", "zeta", "ZETA", passwordEncoder.encode("Zeta1967"));
+			Client admin = new Client("zeta@zeta.com", "zeta", "", passwordEncoder.encode("zeta"));
 
 
 			// persisto los objetos empezando por los CLIENTES p/ q se generen sus 'id'
@@ -109,20 +115,20 @@ public class HomebankingApplication {
 
 			// instancio TARJETAS para
 			// MELBA - cliente c1
-			Card card1 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.DEBIT, CardColor.GOLD, "0000-0000-0000-0001",
-					              (short) 1, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card1 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.DEBIT, CardColor.GOLD, "4528-3547-5698-1278",
+					              (short) 458, LocalDate.now(), LocalDate.now().plusYears(5));
 			c1.addCard(card1);
 			cardRepo.save(card1);
 
-			Card card2 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.CREDIT, CardColor.TITANIUM, "0000-0000-0000-0002",
-					(short) 2, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card2 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.CREDIT, CardColor.TITANIUM, "8954-8425-9731-5622",
+					(short) 732, LocalDate.now(), LocalDate.now().plusYears(5));
 			c1.addCard(card2);
 			cardRepo.save(card2);
 
 
 			// MMDohmen - cliente 2
-			Card card3 = new Card((c2.getLastName() + " " + c2.getFirstName()), CardType.CREDIT, CardColor.SILVER, "0000-0000-0000-0003",
-					(short) 3, LocalDate.now(), LocalDate.now().plusYears(5));
+			Card card3 = new Card((c2.getLastName() + " " + c2.getFirstName()), CardType.CREDIT, CardColor.SILVER, "0710-2502-2012-1201",
+					(short) 252, LocalDate.now(), LocalDate.now().plusYears(5));
 			c2.addCard(card3);
 			cardRepo.save(card3);
 
