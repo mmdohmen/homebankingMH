@@ -21,14 +21,16 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
         // reglas de autorizacion p/ c/ ruta
         http.authorizeRequests().antMatchers("/web/index.html").permitAll()
-                                .antMatchers("/api/logout", "/api/login").permitAll()
+                                .antMatchers("/api/login").permitAll()
+                                .antMatchers("/api/logout").permitAll()
                                 .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
                                 .antMatchers("/admin/**", "/rest/**").hasAuthority("ADMIN")
                                 .antMatchers("/h2-console").hasAuthority("ADMIN")
                                 .antMatchers("/manager.html").hasAuthority("ADMIN")
                                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT")
-                                .antMatchers("/clients/current/account").hasAuthority("CLIENT")
-                                .antMatchers("/clients/current/cards").hasAuthority("CLIENT");
+                                .antMatchers("/clients/current/accounts").hasAuthority("CLIENT")
+                                .antMatchers("/clients/current/cards").hasAuthority("CLIENT")
+                                .antMatchers("/transactions").hasAuthority("CLIENT");
                                 //.anyRequest().denyAll();   // cierre de seguridad final => INVESTIGAR !!!
 
         // configuracion del formulario de inicio de sesion personalizada

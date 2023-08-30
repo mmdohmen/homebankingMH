@@ -42,6 +42,13 @@ public class AccountController {
         return accountRepo.findById(id).map(AccountDTO::new).orElse(null);
     }
 
+    @GetMapping("/clients/current/accounts")
+    public Set<Account> getAccounts (Authentication authentication) {
+        Client client = clientRepo.findByEmail(authentication.getName());
+        Set<Account> clientAccounts = client.getAccounts();
+        return clientAccounts;
+    }
+
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> newAccount (Authentication authentication) {
         // cliente autenticado

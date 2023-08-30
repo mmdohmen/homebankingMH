@@ -8,7 +8,6 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface ClientRepo extends JpaRepository<Client, Long> {
-
     Client findByEmail(String email);
 
 }

@@ -115,19 +115,19 @@ public class HomebankingApplication {
 
 			// instancio TARJETAS para
 			// MELBA - cliente c1
-			Card card1 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.DEBIT, CardColor.GOLD, "4528-3547-5698-1278",
+			Card card1 = new Card((c1.getFirstName() + " " + c1.getLastName()), CardType.DEBIT, CardColor.GOLD, "4528-3547-5698-1278",
 					              (short) 458, LocalDate.now(), LocalDate.now().plusYears(5));
 			c1.addCard(card1);
 			cardRepo.save(card1);
 
-			Card card2 = new Card((c1.getLastName() + " " + c1.getFirstName()), CardType.CREDIT, CardColor.TITANIUM, "8954-8425-9731-5622",
+			Card card2 = new Card((c1.getFirstName() + " " + c1.getLastName()), CardType.CREDIT, CardColor.TITANIUM, "8954-8425-9731-5622",
 					(short) 732, LocalDate.now(), LocalDate.now().plusYears(5));
 			c1.addCard(card2);
 			cardRepo.save(card2);
 
 
 			// MMDohmen - cliente 2
-			Card card3 = new Card((c2.getLastName() + " " + c2.getFirstName()), CardType.CREDIT, CardColor.SILVER, "0710-2502-2012-1201",
+			Card card3 = new Card((c2.getFirstName() + " " + c2.getLastName()), CardType.CREDIT, CardColor.SILVER, "0710-2502-2012-1201",
 					(short) 252, LocalDate.now(), LocalDate.now().plusYears(5));
 			c2.addCard(card3);
 			cardRepo.save(card3);
