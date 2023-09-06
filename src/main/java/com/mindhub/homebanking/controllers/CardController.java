@@ -25,9 +25,9 @@ public class CardController {
 
     // atributos
     @Autowired
-    ClientRepo clientRepo;
+    private ClientRepo clientRepo;
     @Autowired
-    CardRepo cardRepo;
+    private CardRepo cardRepo;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> newCard (Authentication authentication, CardColor color, CardType type) {

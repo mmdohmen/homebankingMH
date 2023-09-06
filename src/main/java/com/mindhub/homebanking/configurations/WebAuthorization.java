@@ -30,7 +30,8 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT")
                                 .antMatchers("/clients/current/accounts").hasAuthority("CLIENT")
                                 .antMatchers("/clients/current/cards").hasAuthority("CLIENT")
-                                .antMatchers("/transactions").hasAuthority("CLIENT");
+                                .antMatchers("/transactions").hasAuthority("CLIENT")
+                                .antMatchers("/loans").hasAuthority("CLIENT");
                                 //.anyRequest().denyAll();   // cierre de seguridad final => INVESTIGAR !!!
 
         // configuracion del formulario de inicio de sesion personalizada

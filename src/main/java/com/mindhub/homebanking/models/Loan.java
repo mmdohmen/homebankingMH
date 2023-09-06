@@ -33,6 +33,9 @@ public class Loan {
         this.payments = payments;
     }
 
+    public Loan(Loan loan) {
+    }
+
     // getter & setter
     public long getId() {
         return id;

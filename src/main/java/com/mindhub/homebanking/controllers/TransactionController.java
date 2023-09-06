@@ -68,6 +68,7 @@ public class TransactionController {
             return new ResponseEntity<>("DESTINATION ACCOUNT DOESN'T EXIST ...", HttpStatus.FORBIDDEN);
         }
 
+
         // verificacion saldo cuenta origen
         if (fromAccount.getBalance() < amount) {
             return new ResponseEntity<>("INSUFFICIENT balance ...", HttpStatus.FORBIDDEN);
