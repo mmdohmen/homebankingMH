@@ -28,6 +28,8 @@ public class HomebankingApplication {
 	public CommandLineRunner initData (ClientRepo clientrepo, AccountRepo accountrepo, TransactionRepo transactionRepo,
 									   LoanRepo loanRepo, ClientLoanRepo clientLoanRepo, CardRepo cardRepo) {
 		return(args -> {
+
+			/*
 			// instancio un cliente y sus cuentas
 			Client c1 = new Client ("melba@mindhub.com", "Melba", "MOREL",
 					                 passwordEncoder.encode("melba"));
@@ -131,6 +133,8 @@ public class HomebankingApplication {
 					(short) 252, LocalDate.now(), LocalDate.now().plusYears(5));
 			c2.addCard(card3);
 			cardRepo.save(card3);
+
+			*/
 
 
 		});
